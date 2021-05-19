@@ -1,0 +1,74 @@
+#include <iostream>
+#include<vector>
+#define int long long
+using namespace std;
+bool a[100003];  // we need to find prime no till square root of highest given no.means example 1e9 or above; 
+                      
+
+signed main() {
+	int i,j;
+	for(i=0;i<=100000;i++)
+	{
+		a[i]=1;
+	}
+	for(i=2;i*i<=100000;i++)
+	{
+		if(a[i]==1)
+		{
+			for(j=i*i;j<=100000;j += i)
+			{
+				a[j]=0;
+			}
+		}
+	}
+	vector<int>v;        //store all prime till square root of 1e9 in vector
+	for(i=2;i<=100000;i++)
+	{
+		if(a[i]==1)
+		{
+			v.emplace_back(i);
+		}
+	}
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		int x,y;
+		cin>>x>>y;        // while using long long ig you are using scanf or printf use %lld for both scanf and printf.
+		if(x==1)            //this is I am doing because if x==1 it will print output as 1 2 3 5 7 but we dont need to print 1; 
+		{
+			x=2;
+		}
+		int d[y-x+1];
+		for(i=0;i<(y-x+1);i++)
+		{
+			d[i]=1;
+		}
+		for(auto p :v)
+		{
+			int first = (x/p)*p;   //here if x==1 all value of first will be 0, which will create effect.
+			if(first<x)
+			{
+				first += p;
+			}
+			if((p*p)>first)
+			{
+				first = p*p;
+			}
+			for(i=first;i<=y;i += p)
+			{
+				d[i-x]=0;
+			} 
+		}
+		for(i=x;i<=y;i++)
+		{
+			if(d[i-x]==1)
+			{
+				cout<<i<<"\n";
+			}
+		}
+		printf("\n");
+	}
+	// your code goes here
+	return 0;
+}

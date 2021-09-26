@@ -1,0 +1,45 @@
+question==>https://www.codechef.com/problems/ADDNDIV
+
+discuss==>https://www.youtube.com/watch?v=lkxyHRjKf6U
+
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+void solve(int n,int b){
+    while(n%2==0){
+        if(b%2!=0){
+            cout<<"NO\n";
+            return ;
+        }
+        n/=2;
+    }
+    for(int i=3;i*i<=n;i=i+2){
+        while(n%i==0){
+            if(b%i!=0){
+                cout<<"NO\n";
+                return ;
+            }
+            n/=i;
+        }
+    }
+    if(n>2){
+        if(b%n!=0){
+            cout<<"NO\n";
+            return;
+        }
+    }
+    cout<<"YES\n";
+}
+signed main() {
+    int t;
+    cin>>t;
+    while(t--){
+        int a,b,x=0;
+        cin>>a>>b;
+        solve(a,b);
+        
+    }
+	// your code goes here
+	return 0;
+}

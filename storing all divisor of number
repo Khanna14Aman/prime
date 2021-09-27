@@ -1,0 +1,8 @@
+	vector<int>dv;
+  for(int i=1;i<N;i++){
+		for(int j=1;j*j<=i;j++){
+			if(i%j) continue;
+			dv[i].PB(j);
+			if(j*j!=i) dv[i].PB(i/j);
+		}
+	}

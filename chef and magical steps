@@ -1,0 +1,159 @@
+question==>https://www.codechef.com/START16B/problems/CHEFMGX
+
+
+
+
+#include<iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+#define fio ios_base::sync_with_stdio(false);cin.tie(NULL);
+
+#define int long long
+#define l long
+#define db long double
+#define str string
+
+#define pi pair<int,int>
+#define pd pair<db,db>
+#define ps pair<str,str>
+
+#define vi vector<int>
+#define vs vector<str>
+#define vb vector<bool>
+#define vd vector<db>
+#define vpi vector<pi>
+#define vpd vector<pd>
+#define vps vector<ps>
+
+#define mp make_pair
+#define f first
+#define s second
+
+#define sz(x) (x.size())
+#define bg(x) x.begin()
+#define ed(x) x.end()
+#define all(x) bg(x),ed(x)
+#define rall(x) x.rbegin(),x.rend()
+#define sor(x) sort(all(x))
+#define sord(x) sort(all(x),greater<int>())
+#define ins insert
+#define ft front()
+#define bk back()
+#define pb push_back
+#define eb emplace_back
+#define pf push_front
+#define rtn return
+
+#define lb lower_bound
+#define ub upper_bound
+#define bs binary_search
+
+
+#define for0(i,n) for(int i=0;i<n;i++)
+#define for1(i,n) for(int i=1;i<=n;i++)
+#define for1_(i,n) for(int i=1;i<n;i++)
+#define rof0(i,n) for(int i=n;i>=0;i--)
+#define rof1(i,n) for(int i=n;i>=1;i--)
+#define rof0_(i,n) for(int i=n-1;i>=0;i--)
+#define rof1_(i,n) for(int i=n-1;i>=1;i--)
+#define forin(i,j,a,n,m) for(int i=0;i<n;i++) for(int j =0;j<m;j++) cin>>a[i][j]
+#define foru(it,j) for(auto it : j)
+#define w(x) while(x--)
+#define wtc(t) int t;cin>>t;while(t--)
+
+int dx4[] = {-1,0,1,0};
+int dy4[] = {0,1,0,-1};
+int dx8[] = {-1,-1,0,1,1,1,0,-1};
+int dy8[] = {0,1,1,1,0,-1,-1,-1};
+
+const int mod = 1e9+7;
+const int infl = 1e18+5;
+const int inf = 2e5+5;
+
+#define minpqint priority_queue<int, vi, greater<int>>
+#define minpqpi priority_queue<pi,vpi,greater<pi>>
+#define maxpqint priority_queue<int>
+#define maxpqpi priority_queue<pi> 
+
+
+int n=10000003;
+vector<int>mpp(10000003);
+bool a[10000003]={0};
+//int find[1000000];
+//map<int,int>mpp;
+void func(){
+    int i,j;
+	for(i=2;i*i<=n;i++)
+	{
+		if(a[i]==0)
+		{
+			for(j=i*i;j<=n;j+=i)
+			{
+				a[j]=1;
+			}
+		}
+	}
+// 	v[1]=1;
+// 	for(i=2;i<=n-3;i++)
+// 		if(a[i+2]==0){
+// 		    v[i]=v[i-1]+1;
+// 		}
+// 		else{
+// 		    v[i]=v[i-1];
+// 		}
+    mpp[1]=1;
+    for(i=2;i<=n-2;i++){
+        if(a[i+2]==0){
+            mpp[i]=mpp[i-1]+1;
+        }
+        else{
+            mpp[i]=mpp[i-1];
+        }
+    }
+    
+}
+
+
+
+
+signed main()
+{
+    ios_base::sync_with_stdio(false);cin.tie(NULL);
+    func();
+    // for(int i=1;i<=10;i++){
+    //     cout<<v[i]<<endl;
+    // }
+    // cout<<mpp[57]<<" "<<mpp[61]<<endl;
+    wtc(t){
+        int x,y;
+        cin>>x>>y;
+        if(x==y){
+            cout<<"0\n";
+            continue;
+        }
+        if(y-x==2){
+            if(a[y]==0){
+                cout<<"1\n";
+            }
+            else{
+                cout<<"2\n";
+            }
+            continue;
+        }
+        if(y-x==1){
+            cout<<"1\n";
+            continue;
+        }
+        int dist = y-x;    // finding distance between x and y to move from x to y
+
+        int pri;
+        pri = mpp[y-2]-mpp[x];     //finding number of primes number between  y-2 and x here we write y-2 because if y-1 is prime then there is no need to jump 2 steps from y-1   
+        if(a[x+2]==0){             // if x+2 is prime then we make first steps of 2 jumps otherwise first steps will be of 1 jumps 
+            pri+=1;
+        }
+        int ans = pri+(dist-(2*pri));    // each prime will cover 2 steps thats why we subtract steps 2 times the number of prime appears and add numbers of primes appears 
+        cout<<ans<<"\n";
+    }
+    rtn 0;
+}
